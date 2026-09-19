@@ -1,0 +1,712 @@
+{
+  "info": {
+    "name": "QAuto Lecture 05 - CRUD + Boundary + Negative",
+    "description": "Повний CRUD-сценарій для одного synthetic-користувача Hillel QAuto API:\nCreate User -> Get User -> Update User -> Get Brands -> Get Models -> Create Car -> Get Car by Id -> Update Car -> Delete Car -> Delete User.\n\nВАЖЛИВО:\n- Email генерується ОДИН РАЗ за прогін (у pre-request script кроку 1 - Signup) і зберігається як collection variable testEmail. Всі наступні запити використовують саме її.\n- testUserId зберігається з response Signup - використовується лише для асертів (сам DELETE /users працює за сесією/cookie, без параметрів).\n- carBrandId/carModelId для створення авто беруться з РЕАЛЬНИХ довідників (GET /cars/brands, GET /cars/models), а не вигадуються - модель обирається так, щоб carBrandId моделі збігався з обраним брендом.\n- testCarId зберігається з response Create Car і використовується для Get/Update/Delete Car.\n- Порядок виконання: Delete Car (крок 9) ОБОВ'ЯЗКОВО виконується ДО Delete User (крок 10), бо після видалення користувача його сесія завершується і машину видалити вже не вдасться.\n- Наприкінці всі collection variables очищаються, щоб наступний прогін почав з чистого аркуша.\n- Жодних реальних персональних даних, credentials чи access tokens у колекції немає.\n\n--- Доповнено (lecture 05) ---\n4. Negative Case: POST /auth/signup без обов'язкового поля lastName -> очікується 400 (документовано в OpenAPI), користувача не створює.\n7. Boundary Case: POST /cars з mileage = maximum(999999) + 1 -> очікується 400 (документоване обмеження Mileage.maximum), авто не створює.\nОбидва кейси не створюють persistent-сутностей і тому не впливають на основний cleanup (Delete Car -> Delete User).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://qauto.forstudy.space/api",
+      "type": "string"
+    },
+    {
+      "key": "testEmail",
+      "value": "",
+      "type": "string",
+      "description": "Генерується один раз у pre-request script кроку Signup."
+    },
+    {
+      "key": "testPassword",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testName",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testLastName",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testUserId",
+      "value": "",
+      "type": "string",
+      "description": "userId з response Signup. Лише для асертів."
+    },
+    {
+      "key": "testCarBrandId",
+      "value": "",
+      "type": "string",
+      "description": "Обраний carBrandId з GET /cars/brands."
+    },
+    {
+      "key": "testCarModelId",
+      "value": "",
+      "type": "string",
+      "description": "Обраний carModelId з GET /cars/models, що належить testCarBrandId."
+    },
+    {
+      "key": "testCarId",
+      "value": "",
+      "type": "string",
+      "description": "id створеного авто з response POST /cars."
+    },
+    {
+      "key": "testMileage",
+      "value": "1000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Signup - Create User",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Генеруємо унікальні synthetic-дані ОДИН РАЗ за запуск CRUD-сценарію.",
+              "if (!pm.collectionVariables.get('testEmail')) {",
+              "    const timestamp = Date.now();",
+              "    const randomPart = Math.random().toString(36).substring(2, 8);",
+              "    const uniqueEmail = `qa.${timestamp}.${randomPart}@example.com`;",
+              "",
+              "    pm.collectionVariables.set('testEmail', uniqueEmail);",
+              "    pm.collectionVariables.set('testPassword', 'Qa12345test');",
+              "    pm.collectionVariables.set('testName', 'QaAuto');",
+              "    pm.collectionVariables.set('testLastName', 'Tester');",
+              "",
+              "    console.log('Generated new synthetic test email:', uniqueEmail);",
+              "} else {",
+              "    console.log('Reusing existing testEmail from collection variables:', pm.collectionVariables.get('testEmail'));",
+              "}"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response has userId', function () {",
+              "    pm.expect(jsonData.data).to.have.property('userId');",
+              "    pm.expect(jsonData.data.userId).to.be.a('number');",
+              "});",
+              "",
+              "if (jsonData.data && jsonData.data.userId) {",
+              "    pm.collectionVariables.set('testUserId', jsonData.data.userId);",
+              "    console.log('Saved testUserId:', jsonData.data.userId);",
+              "}",
+              "",
+              "pm.test('Response status field is ok', function () {",
+              "    pm.expect(jsonData.status).to.eql('ok');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{testName}}\",\n  \"lastName\": \"{{testLastName}}\",\n  \"email\": \"{{testEmail}}\",\n  \"password\": \"{{testPassword}}\",\n  \"repeatPassword\": \"{{testPassword}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/signup",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "signup"
+          ]
+        },
+        "description": "Реєструє нового synthetic-користувача. Session cookie автоматично зберігається Postman'ом і переноситься на наступні запити."
+      }
+    },
+    {
+      "name": "2. Get Current User (Read)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('userId matches the one created in Signup', function () {",
+              "    pm.expect(String(jsonData.data.userId)).to.eql(String(pm.collectionVariables.get('testUserId')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/current",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "current"
+          ]
+        },
+        "description": "Перевіряє, що сесія активна і належить щойно створеному користувачеві."
+      }
+    },
+    {
+      "name": "3. Update Profile (Update User)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response status field is ok', function () {",
+              "    pm.expect(jsonData.status).to.eql('ok');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{testName}}\",\n  \"lastName\": \"{{testLastName}}Updated\",\n  \"country\": \"Ukraine\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/profile",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "profile"
+          ]
+        },
+        "description": "Оновлює профіль того ж synthetic-користувача (та сама сесія). Email навмисно не змінюється."
+      }
+    },
+    {
+      "name": "4. Negative Case - Signup Missing Required Field",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Окреме synthetic-значення email для Negative Case, ЛОКАЛЬНЕ (pm.variables),",
+              "// щоб не конфліктувати з persistent testEmail основного сценарію і не персистувати.",
+              "const timestamp = Date.now();",
+              "const randomPart = Math.random().toString(36).substring(2, 8);",
+              "pm.variables.set('negativeCaseEmail', `qa.neg.${timestamp}.${randomPart}@example.com`);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Контракт: POST /auth/signup вимагає name, lastName, email, password, repeatPassword",
+              "// (OpenAPI: required = [name, lastName, email, password, repeatPassword]).",
+              "// У цьому запиті навмисно відсутнє поле 'lastName' -> документована відповідь 400BadRequest",
+              "// { status: 'error', message: string }.",
+              "",
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response status is error', function () {",
+              "    pm.expect(jsonData.status).to.eql('error');",
+              "});",
+              "",
+              "pm.test('Response has message field', function () {",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData.message).to.be.a('string');",
+              "});",
+              "",
+              "pm.test('Required field validation failed - no user created', function () {",
+              "    // Немає userId у відповіді -> користувача не створено.",
+              "    pm.expect(jsonData).to.not.have.property('data');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"QaNegative\",\n  \"email\": \"{{negativeCaseEmail}}\",\n  \"password\": \"Qa12345test\",\n  \"repeatPassword\": \"Qa12345test\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/signup",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "signup"
+          ]
+        },
+        "description": "Negative Case: у тілі запиту відсутнє обов'язкове поле 'lastName' (required за OpenAPI). Очікується 400 Bad Request, документований у components.responses.400BadRequest. Використовує окремий synthetic email (negativeCaseEmail), НЕ testEmail, і не створює жодного persistent-користувача - тому не впливає на основний cleanup."
+      }
+    },
+    {
+      "name": "5. Get Car Brands (reference data)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Brands list is not empty', function () {",
+              "    pm.expect(jsonData.data).to.be.an('array').that.is.not.empty;",
+              "});",
+              "",
+              "const firstBrand = jsonData.data[0];",
+              "pm.collectionVariables.set('testCarBrandId', firstBrand.id);",
+              "console.log('Selected brand:', firstBrand.title, '-> id', firstBrand.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cars/brands",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars",
+            "brands"
+          ]
+        },
+        "description": "Отримує довідник реальних брендів авто. Береться перший бренд зі списку - carBrandId не вигадується."
+      }
+    },
+    {
+      "name": "6. Get Car Models (reference data)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Models list is not empty', function () {",
+              "    pm.expect(jsonData.data).to.be.an('array').that.is.not.empty;",
+              "});",
+              "",
+              "const brandId = pm.collectionVariables.get('testCarBrandId');",
+              "const matchingModel = jsonData.data.find(m => String(m.carBrandId) === String(brandId));",
+              "",
+              "pm.test('Found a model for the selected brand', function () {",
+              "    pm.expect(matchingModel, `No model found for carBrandId=${brandId}`).to.not.be.undefined;",
+              "});",
+              "",
+              "if (matchingModel) {",
+              "    pm.collectionVariables.set('testCarModelId', matchingModel.id);",
+              "    console.log('Selected model:', matchingModel.title, '-> id', matchingModel.id, 'for brandId', brandId);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cars/models",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars",
+            "models"
+          ]
+        },
+        "description": "Отримує довідник моделей і обирає ту, чий carBrandId збігається з testCarBrandId з попереднього кроку."
+      }
+    },
+    {
+      "name": "7. Boundary Case - Mileage Above Maximum Rejected",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// OpenAPI: components.schemas.Mileage = { type: integer, minimum: 0, maximum: 999999 }.",
+              "// Boundary Case: значення ОДРАЗУ вище задокументованого maximum (999999 + 1 = 1000000).",
+              "// Обрано саме цей варіант (а не 'accepted at max'), бо він НЕ створює persistent-сутність",
+              "// (запит відхиляється з 400 -> авто не створюється -> не потребує додаткового cleanup)",
+              "// і водночас однозначно перевіряє задокументоване обмеження maximum.",
+              "const documentedMax = 999999;",
+              "pm.variables.set('mileageAboveMax', documentedMax + 1);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response status is error', function () {",
+              "    pm.expect(jsonData.status).to.eql('error');",
+              "});",
+              "",
+              "pm.test('Response has message field', function () {",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData.message).to.be.a('string');",
+              "});",
+              "",
+              "pm.test('Boundary value rejected - no car created', function () {",
+              "    pm.expect(jsonData).to.not.have.property('data');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"carBrandId\": {{testCarBrandId}},\n  \"carModelId\": {{testCarModelId}},\n  \"mileage\": {{mileageAboveMax}}\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cars",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars"
+          ]
+        },
+        "description": "Boundary Case для Mileage (OpenAPI: minimum 0, maximum 999999). Надсилає mileage = 1000000 (maximum + 1) у межах сесії того самого synthetic-користувача, використовуючи вже отримані testCarBrandId/testCarModelId. Очікується документована відповідь 400BadRequest. Авто НЕ створюється, тому додаткового cleanup для цього кейсу не потрібно."
+      }
+    },
+    {
+      "name": "8. Create Car",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response has car id', function () {",
+              "    pm.expect(jsonData.data).to.have.property('id');",
+              "    pm.expect(jsonData.data.id).to.be.a('number');",
+              "});",
+              "",
+              "if (jsonData.data && jsonData.data.id) {",
+              "    pm.collectionVariables.set('testCarId', jsonData.data.id);",
+              "    console.log('Saved testCarId:', jsonData.data.id);",
+              "}",
+              "",
+              "pm.test('Car brand/model match request', function () {",
+              "    pm.expect(String(jsonData.data.carBrandId)).to.eql(String(pm.collectionVariables.get('testCarBrandId')));",
+              "    pm.expect(String(jsonData.data.carModelId)).to.eql(String(pm.collectionVariables.get('testCarModelId')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"carBrandId\": {{testCarBrandId}},\n  \"carModelId\": {{testCarModelId}},\n  \"mileage\": {{testMileage}}\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cars",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars"
+          ]
+        },
+        "description": "Створює авто для поточного synthetic-користувача (та сама сесія). carBrandId/carModelId взяті з реальних довідників, а не вигадані."
+      }
+    },
+    {
+      "name": "9. Get Car By Id (Read)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Returned car id matches created car', function () {",
+              "    pm.expect(String(jsonData.data.id)).to.eql(String(pm.collectionVariables.get('testCarId')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cars/{{testCarId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars",
+            "{{testCarId}}"
+          ]
+        },
+        "description": "Отримує щойно створене авто за id, збереженим на кроці 6."
+      }
+    },
+    {
+      "name": "10. Update Car",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Оновлюємо mileage до нового валідного значення (в межах 0..999999).",
+              "const currentMileage = parseInt(pm.collectionVariables.get('testMileage'), 10) || 1000;",
+              "pm.collectionVariables.set('testUpdatedMileage', currentMileage + 500);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Mileage was updated', function () {",
+              "    pm.expect(String(jsonData.data.mileage)).to.eql(String(pm.collectionVariables.get('testUpdatedMileage')));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"carBrandId\": {{testCarBrandId}},\n  \"carModelId\": {{testCarModelId}},\n  \"mileage\": {{testUpdatedMileage}}\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cars/{{testCarId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars",
+            "{{testCarId}}"
+          ]
+        },
+        "description": "Редагує щойно створене авто - збільшує mileage на 500."
+      }
+    },
+    {
+      "name": "11. Delete Car (Cleanup)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Deleted carId matches the one created', function () {",
+              "    pm.expect(String(jsonData.data.carId)).to.eql(String(pm.collectionVariables.get('testCarId')));",
+              "});",
+              "",
+              "pm.test('Cleanup car-related collection variables', function () {",
+              "    pm.collectionVariables.unset('testCarId');",
+              "    pm.collectionVariables.unset('testCarBrandId');",
+              "    pm.collectionVariables.unset('testCarModelId');",
+              "    pm.collectionVariables.unset('testUpdatedMileage');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cars/{{testCarId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cars",
+            "{{testCarId}}"
+          ]
+        },
+        "description": "Видаляє саме те авто, яке було створено на кроці 6, використовуючи збережений testCarId. Виконується ДО видалення користувача, бо після Delete User сесія завершиться."
+      }
+    },
+    {
+      "name": "12. Delete User (Cleanup)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// DELETE /users не приймає ані email, ані userId - видаляє АВТЕНТИФІКОВАНОГО поточного",
+              "// користувача за активною сесією (cookie), встановленою кроком Signup.",
+              "if (!pm.collectionVariables.get('testEmail')) {",
+              "    console.warn('testEmail is empty - схоже, Signup не виконувався в цьому прогоні. Cleanup може впасти з 401.');",
+              "}"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response status field is ok', function () {",
+              "    pm.expect(jsonData.status).to.eql('ok');",
+              "});",
+              "",
+              "pm.test('Cleanup remaining collection variables', function () {",
+              "    pm.collectionVariables.unset('testEmail');",
+              "    pm.collectionVariables.unset('testPassword');",
+              "    pm.collectionVariables.unset('testName');",
+              "    pm.collectionVariables.unset('testLastName');",
+              "    pm.collectionVariables.unset('testUserId');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        },
+        "description": "Видаляє акаунт і сесію ПОТОЧНОГО автентифікованого користувача. Виконується ОСТАННІМ, після видалення авто цього ж користувача."
+      }
+    }
+  ]
+}

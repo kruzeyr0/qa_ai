@@ -1,0 +1,337 @@
+Візьми мою поточну робочу Postman collection **Hillel-QAuto-User-and-Car-CRUD.postman_collection.json** та додану OpenAPI-специфікацію **hillel-auto-openapi-2026-09-12.json**.
+
+Потрібно доопрацювати існуючу collection відповідно до вимог ДЗ з API CRUD для QAuto.
+
+### Головне правило
+
+**Не переписуй і не ламай існуючий робочий CRUD-сценарій.**
+
+Збережи наявні запити, їхній порядок, variables, pre-request/test scripts та cleanup, якщо вони відповідають актуальній OpenAPI-специфікації.
+
+Спочатку проаналізуй OpenAPI та поточну collection, після цього внеси лише необхідні зміни.
+
+---
+
+### 1. Зберегти Happy Path
+
+У collection вже є основний сценарій:
+
+1. Signup — Create User
+2. Get Current User
+3. Update Profile
+4. Get Car Brands
+5. Get Car Models
+6. Create Car
+7. Get Car By Id
+8. Update Car
+9. Delete Car
+10. Delete User
+
+Не видаляй ці запити та не змінюй їхню логіку без необхідності.
+
+Збережи dependency chain:
+
+```text
+Create User
+    ↓
+User session
+    ↓
+Get / Update User
+    ↓
+Get Brands
+    ↓
+Get Models
+    ↓
+Create Car
+    ↓
+Get Car
+    ↓
+Update Car
+    ↓
+Delete Car
+    ↓
+Delete User
+```
+
+Cleanup повинен залишатися безпечним і виконуватися наприкінці.
+
+---
+
+### 2. Додати Boundary Case
+
+На основі **тільки актуальної OpenAPI-специфікації** знайди поле, для якого явно задокументовані обмеження:
+
+* `minimum`;
+* `maximum`;
+* `minLength`;
+* `maxLength`;
+* або інші явні boundary constraints.
+
+Визнач найкращий boundary case для цього API.
+
+Якщо для `mileage` в OpenAPI дійсно визначені мінімальне та максимальне значення, використовуй саме його.
+
+Не вигадуй обмеження, яких немає в OpenAPI.
+
+Створи окремий Postman request для Boundary Case.
+
+Перевір доступні межі та, якщо це однозначно випливає з OpenAPI, протестуй:
+
+* мінімально допустиме значення;
+* максимально допустиме значення;
+* значення нижче мінімального;
+* значення вище максимального.
+
+Не обов'язково створювати всі чотири запити, якщо для виконання завдання достатньо одного чіткого boundary-сценарію. Обери найбільш змістовний варіант.
+
+Для Boundary Case:
+
+* використовуй тільки synthetic data;
+* додай assertions;
+* перевіряй HTTP status;
+* перевіряй response body, якщо це передбачено контрактом;
+* не використовуй дані інших користувачів.
+
+Якщо необхідні boundary-обмеження не визначені в OpenAPI, **не вигадуй expected result**. Познач такий кейс як `BLOCKED` і вкажи причину.
+
+---
+
+### 3. Додати Negative Case
+
+Створи окремий Negative Case на основі реального OpenAPI-контракту.
+
+Обери найбільш однозначний та безпечний варіант.
+
+Наприклад, для `POST /auth/signup` можна перевірити відсутність одного з required fields, оскільки OpenAPI явно визначає обов'язкові поля:
+
+```text
+name
+lastName
+email
+password
+repeatPassword
+```
+
+Negative Case не повинен створювати нового користувача.
+
+Наприклад:
+
+* прибрати required field;
+* передати некоректний формат email;
+* використати інше порушення контракту, яке чітко визначене OpenAPI.
+
+Expected HTTP status бери **тільки з documented responses OpenAPI**.
+
+Додай assertions на:
+
+* очікуваний HTTP status;
+* response body/status, якщо це документовано;
+* факт відхилення некоректного запиту.
+
+Не використовуй реальні персональні дані.
+
+---
+
+### 4. Не ламати synthetic user lifecycle
+
+Основний користувач повинен залишатися таким самим, як у поточній collection.
+
+`testEmail` має:
+
+* генеруватися один раз на початку сценарію;
+* зберігатися у collection variable;
+* використовуватися всіма наступними запитами;
+* не генеруватися заново перед кожним HTTP-запитом.
+
+Negative Case не повинен створювати другого persistent test user.
+
+Якщо для Negative Case потрібен email, використовуй окреме synthetic значення, яке не конфліктує з `testEmail`.
+
+---
+
+### 5. Зберегти існуючі variables
+
+Не видаляй існуючі variables:
+
+```text
+baseUrl
+testEmail
+testPassword
+testName
+testLastName
+testUserId
+testCarBrandId
+testCarModelId
+testCarId
+testMileage
+```
+
+Якщо для Boundary Case потрібні додаткові variables, додай їх лише за необхідності.
+
+Не зберігай credentials у variables.
+
+---
+
+### 6. Правильний порядок
+
+Розмісти нові кейси логічно.
+
+Бажана структура:
+
+```text
+1. Signup - Create User
+2. Get Current User
+3. Update Profile
+
+4. Negative Case
+
+5. Get Car Brands
+6. Get Car Models
+
+7. Boundary Case
+8. Create Car
+9. Get Car By Id
+10. Update Car
+11. Delete Car
+12. Delete User
+```
+
+Якщо залежності API вимагають іншого порядку — використовуй правильний порядок на основі OpenAPI та поясни його.
+
+---
+
+### 7. Assertions
+
+Для кожного нового тесту обов'язково додай Postman tests.
+
+Не обмежуйся лише перевіркою HTTP status.
+
+Перевіряй також:
+
+* response status/body;
+* наявність очікуваних полів;
+* відповідність фактичного результату меті тесту.
+
+Не додавай assertions на поля, яких немає в documented response або фактичному response contract.
+
+Назви assertions повинні бути зрозумілими, наприклад:
+
+```text
+Status code is 400
+Required field validation failed
+Response status is error
+Boundary value accepted
+Boundary value rejected
+```
+
+---
+
+### 8. Cleanup
+
+Не ламай існуючий cleanup.
+
+Обов'язковий порядок:
+
+```text
+Delete Car
+    ↓
+Delete User
+```
+
+Потрібно видалити саме ті synthetic entities, які були створені поточним запуском.
+
+Не використовуй для cleanup випадкові або hardcoded IDs.
+
+Після Delete Car очисть car-related variables.
+
+Після Delete User очисть user-related variables.
+
+Negative Case не повинен впливати на основний cleanup.
+
+---
+
+### 9. Перевірити відповідність OpenAPI
+
+Після внесення змін перевір усю collection проти OpenAPI.
+
+Для кожного запиту перевір:
+
+* HTTP method;
+* path;
+* request body;
+* required fields;
+* data types;
+* constraints;
+* documented response status.
+
+Особливо ретельно перевір нові Boundary та Negative cases.
+
+**Не вигадуй поведінку API, якої немає в OpenAPI.**
+
+Якщо документація та collection суперечать одна одній, за основу бери актуальну OpenAPI-специфікацію та зафіксуй розбіжність.
+
+---
+
+### 10. Безпека
+
+У collection не повинно бути:
+
+* LMS credentials;
+* Basic Auth username/password;
+* access tokens;
+* реальних паролів;
+* реальних email;
+* персональних даних.
+
+Використовуй лише synthetic test data.
+
+Не додавай credentials у:
+
+* collection variables;
+* environment variables;
+* scripts;
+* descriptions;
+* examples.
+
+---
+
+### 11. Фінальний файл
+
+Збережи результат як:
+
+`qauto-lecture-05-crud.postman_collection.json`
+
+Не перезаписуй оригінальну collection.
+
+Перевір JSON на валідність.
+
+Нічого не коміть і не створюй git commit.
+
+Після завершення покажи короткий звіт:
+
+```text
+Existing CRUD preserved: YES/NO
+
+Added:
+- Boundary Case: ...
+- Negative Case: ...
+
+OpenAPI alignment:
+- Methods/paths: PASS/FAIL
+- Request schemas: PASS/FAIL
+- Expected responses: PASS/FAIL
+
+Cleanup:
+- Delete Car → Delete User: PASS/FAIL
+
+Synthetic data only: YES/NO
+
+Secrets detected: YES/NO
+
+JSON valid: YES/NO
+
+Output:
+qauto-lecture-05-crud.postman_collection.json
+```
+
+Якщо будь-який кейс неможливо коректно реалізувати через недостатню інформацію в OpenAPI, не вигадуй дані — познач його як `BLOCKED` та поясни конкретну причину.

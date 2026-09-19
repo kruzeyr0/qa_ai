@@ -1,0 +1,2305 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Hillel Qauto",
+    "description": "Api docs for hillel-qauto project\n        <pre>To get a session cookie you need to request <span>api/auth/signup</span> or <span>api/auth/signin</span> routes\n        and to receive successful response. In this way session cookie named <span>\"sid\"</span> will be set.</pre>\n"
+  },
+  "contact": {
+    "email": "support@ithillel.ua"
+  },
+  "servers": [
+    {
+      "url": "https://qauto.forstudy.space/api"
+    }
+  ],
+  "externalDocs": {
+    "url": "https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Qauto%20POST%2FPUT%20expense%20flowchart#R7V1bd5u4Fv41WecpWUjcH5tLM5OT5vQkJ9NJX7qwrdjMYHAxTuz59UfCCAwSMakBKVgvbRAYy%2FuT9v72RdKJfjFfX8feYvYlmqDgBGqT9Yl%2BeQIh0B0b%2F0daNlkLcPVtyzT2J1lb0fDg%2F4OyRi1rXfkTtCw9mERRkPiLcuM4CkM0TkptXhxHr%2BXHnqOg%2FK0Lb4qYhoexF7Ct3%2FxJMtu2OtAu2n9D%2FnRGvxlY7vbO3KMPZ79kOfMm0etOk351ol%2FEUZRs%2F5qvL1BApEfl8u33zbfg9m%2Fr%2Bua%2Fy5%2Fe4%2Fm%2F%2F3f3x%2Bn2ZZ%2Ff85H8J8QoTH751TcX08%2Bz4PU2%2BPPqexTcXD6Nfns8tZzstyUbKjA0wfLLLqM4mUXTKPSCq6L1PI5W4QSR12r4qnjmNooWuBHgxr9QkmyyweCtkgg3zZJ5kN3FPyPe%2FJl9Pr14IhdnJr28XO%2FevNxkVw3lkMlrGa3iMXrrx1vZePTiKUreejAbEkQ0O6Mqk%2FM1iuYIdxM%2FEKPAS%2FyX8tDzshE8zZ%2FLP%2Fo18vEvgVo23aClZ5%2FJZpuuaeV3bLuafawAG%2F%2Bx04%2BiKR0C7xgOAEAR40EUroCKtz1gS4i8V%2Fy04y9esMq%2BKkYLLFCigL0EnRC9Y3lzLNXzaZIKDivTibdhQItn0Xy0wv07f535CXpYeKnEXrGSL4v%2B2Q%2BCiyiI4vRz%2BvPzMxyPcfsyiaO%2F0c6diTWyTIvcwe%2FywyluheTzUZhkuALyvhcUJz7Wvp8Cfxrixrk%2FmaSD5H0Yk9eg9ZuQ0DmTw5HNGWhkoL4W6h5YWdtsR9U7WlcwugyMV9iSYUF%2BwvAFBLhRjP9KIbyvADzD3SGo4n9G5DpAy7Rh5oVp%2BzwiRpEFPJ%2BD4P2gO2PEB33kmIapSQi6YckGug0Y0J8w79nBewcu6%2BeKsIZUkKfLVJJ4aGgALNap1Oh9OkgYuLGckjKmXib7MRY1it8CJUb4G71R%2BiqC7YJYk1Qc5vmJeUnehTX0MsN3L%2FjdYaxVMLZYjA0OxLAriAEwB2Adc6O33zwCQyrzCKwjk78lmfxpz3d0XEY%2FNLReoHBJFB7%2B018mipEUisvQRBsnoJkMcneRMk7tGScDshjr%2FRonjQFCOuXYtQMNTOCUOUPVgd6q5w4daF1NtFYnmq7pJUR1U%2FhEs%2BWfaPtZCOV2e1mI7chFQuibj0T8AMoVo8p7vqPhkBcHPiKkj%2FLAY6Z%2Flnz0j1pFFZxoC2Snyv%2BAe%2BbaDM79xieMD0AB96tG2Ng%2F1lvPyxwmf3MQ8Ynm8jdbp%2FUHUgM2PoG%2FVxmmGsNkc3zWng0TeYFyl1rE2K7YJROIdpcMOAClSJ2g%2Fd6SXCbJZolfbUY5yDLKY4%2FMu3GMcP%2BiMH%2FwePWmY8lG6Okoa5RhvkOvu%2FaP4j5fpXYxjMi%2FnFQzdxic4f8v%2BOND88mHz87O2KFyXLnp6nARn5t2VG66ZYxdatXeiEr26%2FtBYwBm1oENzSyAulR2lnZ8Z4bN%2FQCR2lTGwpK7mXb1Qz%2FxPfL2%2FOmjNbM6qIZUhJtZRx%2FAnGpMXekY3julCkMH%2BYC1D4RKX7c71zRDsvS1w5a%2B1jPaz35cjukU6rOe1kZkmKCfq1TdpvWVNTq44Lgc9axYbo22loDlDiEv25gB0QnTVFvXA9Y%2BECrb1PZkc8rYCXc3XNajfFxkcYCtWq0ltKUJt09NVgRcUZsTDznPXLVpjR00eu4SEr1iQcUH0102MU%2FnHJFjo1ln4FnHTjkMlXtF%2Fj3PjTHu4falNbPyEGs4MZEzMXiwOnCkWzL6LtXR4DjCR8MQcpFUzey1hm7TSulco1ZyYabZGRBsrFb5LofMNWhbJehqSi%2F6zXLBIUy3PKq2f751U9D7KY7T1QT0gWwIFm%2Bu1PvqRjWlbWkVLLevbLfIl67SPRKwAZ1KkgRb857vqNTnVbKKURETUAtROKxEfEQV0H0XlDVsCeOqBhRf8KEPwhRSmTXQjpKt0tOFxMHyPT3yCyF7ejTHrbHL0DGFsSrlAi7shcKwpZKchOU0T1hWQ%2FA7Jf9V08s%2BrJKbuulIZ4p1lkWpMO1hIFdXfsiwKEBnw4L7asXeyqZNSd0XIoODTaiFBOMdPbD9TpJPu%2BPeOVHptDr9ID6dBnQ2Jav0w0EgV0298DQO0NlUnXLH2oRYvDtmCHHHJNniL18iJiCieSBsQnZmFCZ%2BYNhyyZ%2F2vGlFZ5VJ5QvPFl65Vkk5R3sr5sXn0gGNnCry096Kaa0MMofh9rxcmiW4ivy0WVXKg7hn8sOmGw5xfmtLSRcxevGj1ZLv%2FX6tvas84FojYHK2e%2BzbCLAcQBmBVtdNWbZoI2AOYY1HvhNDgz0boFw823SPTP6SbadlskRX%2BTkdab%2FqBhziq0RzdaAI0ocjSDKMHpUi6NhLdjl54p4JkqrYahfi6hY9ji7aS6breD84B2u60BlQRdo%2FB7v%2Fkfznr8vvj4vz719vwfL7w9j6%2FVTIrn1o7SdpfmabksFXTzt3iuwMuaDJmSKpU%2BRx8k%2F1mNRpjHRHNV68OvSy2gbQrszWmpOb3lsuxmgPAJxSvdj%2BGvnqJzqqMDPZ1LKqMOvRuQCa%2BBIS%2Bm2KO3TEHVxXOHdg4weqvEw65VD1HaVQDqr%2BtGPnEWjCj8wSc8Bo24STHsTUwLWQrIzFHsK2cO%2BQvy3XvnB5z%2FksGF%2FzqK8Xbk6ykz3%2FVYqJKtq797AtCdLGnGNclWFr9RAgU3hU1Gq3sKTEc2un%2F%2FbblsdOZquHv0ow5TmnvypHt01HFwDRtWRQG0SU3G666wOkCPRPpV7%2BGF3f3tydPl5f2%2Ffr8Mk7vf8pKEouyarmxqgBR7LV6Dbr5dMzY4tYTy3BTbfw4Bi8o%2BG3wHXkM3bsbryK37Z6mqzJKe3ol9%2Faqja%2BXYhzivgGxP1G7l0hFrVty%2Bg0Dg05koXm3EFUHjeXv9t0x%2BJDD4F26sos9%2BTiW0t9O2zQT51DV%2BBjG9JRGmcQVehUwzXQhZJVoTtsOO249pMGZpUCSjAp2AoetaF0TzoS0q1B5BkOnD3fldt3EMiWU97JWLzbx9lDXrl9h0Bc5aKW8IItdxAVGdSZaOB2yOX2QW0QFRmN5S8wjfB2z1Vdshhvz5aAybSbvFc1q714RDIMHLUhROsUuAKyaAoMtSGEgnKr28A%2ByxUKynvOSRhnq8tVtrh2OlWzxeJ1JtRUmX%2FLqUTN2u9T9qwz1fm8Lc%2Fj6rlGorPFEAgJG%2FzKKmVxphS0HmrgZzgZDQC06tHb25%2FVWYozZw0qNyB%2ByQMAwvdLxX1QVr7lgqHqprjCPSM67D62ZwSaJslzScriGQ3iYK13yF%2Byg7Xynu%2FouJ1gsCrsYbxPV7z3CdiInfJM2nQ%2BHdEJTWwFh6AWqXwamCW5ljhDKOS8QYHyb72O9UD5s5vsxGiBRYrbshI6zj6uWVndmOSu%2FCjMnz1e61VNVEpgvcgLlFfVZWDNFe9VsfHxfcnoImecze%2FajXiTmRfWzXWShL7gKwGVg67RCTKEWqBaftdxkR7QRB9LkFPoD06qGleJQVcuUqXDo5K%2FbAtC8p43PZYgM3F%2B6Cd%2BWn2lKu%2BYAioZCK06b7TbJQQ8PttzOIaNuNXz2c9%2BXA6e%2FtrpEjWTv2C4HL2gOG6NmpCB4%2Boqndg2yg6UjuOynq8yBodgbJj7gxv9GgN9CIuN8kRkg5SlZIuNjEG4kc3lL1sxs86up1Snq3UV2nUk5DFqG6Vu089cGtOzjVNnDH8UV4dREVD4GXpQV2vKutYRkHPCWr%2BujsH6s8oOHFYdW4579bo%2FMHd%2FWoVw25n6%2FZujdAWwGX7xf9xcuz820L%2B4uV9fRd%2F%2BOYUMDL25UhV35td8K%2B6Parq2ZTvdevCj3urlAYtNIOQtNnnAvzsZwioTZl41HSLNV5l0yJTwZRwRYPJ711igsy%2FRBJEn%2Fg8%3D",
+    "description": "Fuel expense post/put logic flowchart"
+  },
+  "paths": {
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Ends up user session. Clears session cookies.",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "User session successfully ended",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Registers users in the system.",
+        "operationId": "signup",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 20
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 20
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 8,
+                    "maxLength": 15,
+                    "pattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*$"
+                  },
+                  "repeatPassword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "name",
+                  "lastName",
+                  "email",
+                  "password",
+                  "repeatPassword"
+                ]
+              },
+              "example": {
+                "name": "John",
+                "lastName": "Dou",
+                "email": "test@test.com",
+                "password": "Qwerty12345",
+                "repeatPassword": "Qwerty12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Creates user, user profile and user settings, and authenticates created user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "description": "Id of created user",
+                          "minimum": 1
+                        },
+                        "distanceUnits": {
+                          "$ref": "#/components/schemas/DistanceUnits"
+                        },
+                        "currency": {
+                          "$ref": "#/components/schemas/Currency"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Registers users in the system.",
+        "operationId": "signin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "minLength": 8,
+                    "maxLength": 15
+                  },
+                  "rememberMe": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "test@test.com",
+                "password": "Qwerty12345",
+                "remember": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticates user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "description": "Id of created user",
+                          "minimum": 1
+                        },
+                        "distanceUnits": {
+                          "$ref": "#/components/schemas/DistanceUnits"
+                        },
+                        "currency": {
+                          "$ref": "#/components/schemas/Currency"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          }
+        }
+      }
+    },
+    "/auth/resetPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Sends password reset instructions to the specified email",
+        "operationId": "resetPassword",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              },
+              "example": {
+                "email": "test@test.com"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticates user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets authenticated user data.",
+        "operationId": "current",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "description": "Id of created user",
+                          "minimum": 1
+                        },
+                        "distanceUnits": {
+                          "$ref": "#/components/schemas/DistanceUnits"
+                        },
+                        "currency": {
+                          "$ref": "#/components/schemas/Currency"
+                        },
+                        "photoFilename": {
+                          "type": "string",
+                          "default": "default-user.png"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets authenticated user profile data.",
+        "operationId": "getProfile",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "description": "Id of created user",
+                          "minimum": 1
+                        },
+                        "photoFilename": {
+                          "type": "string",
+                          "default": "default-user.png"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "userId": 1,
+                    "photoFilename": "default-user.png",
+                    "name": "John",
+                    "lastName": "Dou"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Edits user's profile",
+        "operationId": "putProfile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 20
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 20
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "dateBirth": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "example": {
+                "photo": "user-1621352948859.jpg",
+                "name": "John",
+                "lastName": "Dou",
+                "dateBirth": "2021-03-17T15:21:05.000Z",
+                "country": "Ukraine"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User profile was successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "photoFilename": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": "string"
+                        },
+                        "dateBirth": {
+                          "type": "string",
+                          "format": "date-format"
+                        },
+                        "country": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "userId": 33,
+                    "photoFilename": "user-1621352948859.jpg",
+                    "name": "John",
+                    "lastName": "Dou",
+                    "dateBirth": "2021-03-17T15:21:05.000Z",
+                    "country": "Ukraine"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/users/settings": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets authenticated user settings data.",
+        "operationId": "getSettings",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "currency": {
+                          "$ref": "#/components/schemas/Currency"
+                        },
+                        "distanceUnits": {
+                          "$ref": "#/components/schemas/DistanceUnits"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Edits user's settings",
+        "operationId": "putSettings",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "$ref": "#/components/schemas/Currency"
+                  },
+                  "distanceUnits": {
+                    "$ref": "#/components/schemas/DistanceUnits"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User settings was successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "currency": {
+                          "$ref": "#/components/schemas/Currency"
+                        },
+                        "distanceUnits": {
+                          "$ref": "#/components/schemas/DistanceUnits"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/users/resetPassword/{userId}/{token}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Sends an email with new password to the user's email",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Numeric user id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "description": "Generated hash string which identifies reset password session and stored in database. Deleted after expiration.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email was successfully sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/users/email": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Changes user's email",
+        "operationId": "putEmail",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "test@test.com",
+                "password": "Qwerty12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email was successfully changed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/users/password": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Changes user's password",
+        "operationId": "putPassword",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "pattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*$"
+                  },
+                  "repeatPassword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "oldPassword",
+                  "password",
+                  "repeatPassword"
+                ]
+              },
+              "example": {
+                "oldPassword": "FooBar12345",
+                "password": "Qwerty12345",
+                "repeatPassword": "Qwerty12345"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password was successfully changed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/users": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deletes user's account and current user session",
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "User account was successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          }
+        }
+      }
+    },
+    "/cars/brands": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets car brands",
+        "operationId": "getBrands",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Brand"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "id": 1,
+                      "title": "Audi",
+                      "logoFilename": "audi.png"
+                    },
+                    {
+                      "id": 2,
+                      "title": "BMW",
+                      "logoFilename": "bmw.png"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/cars/brands/{id}": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets car brand by id",
+        "operationId": "getBrandById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric brand id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Brand"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 2,
+                    "title": "BMW",
+                    "logoFilename": "bmw.png"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/cars/models": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets car models",
+        "operationId": "getModels",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Model"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "id": 1,
+                      "carBrandId": 1,
+                      "title": "TT"
+                    },
+                    {
+                      "id": 2,
+                      "carBrandId": 1,
+                      "title": "R8"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/cars/models/{id}": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets car model by id",
+        "operationId": "getModelById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric model id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Model"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 1,
+                    "carBrandId": 1,
+                    "title": "TT"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets current user cars",
+        "operationId": "getCars",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Car"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "id": 94,
+                      "carBrandId": 1,
+                      "carModelId": 1,
+                      "initialMileage": 11,
+                      "updatedMileageAt": "2021-05-17T15:26:36.000Z",
+                      "mileage": 111,
+                      "brand": "Audi",
+                      "model": "TT",
+                      "logo": "audi.png"
+                    },
+                    {
+                      "id": 95,
+                      "carBrandId": 1,
+                      "carModelId": 2,
+                      "initialMileage": 11,
+                      "updatedMileageAt": "2021-06-17T15:26:36.000Z",
+                      "mileage": 111,
+                      "brand": "Audi",
+                      "model": "R8",
+                      "logo": "audi.png"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Creates new car",
+        "operationId": "postCar",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "carBrandId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "carModelId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "mileage": {
+                    "$ref": "#/components/schemas/Mileage"
+                  }
+                },
+                "required": [
+                  "carBrandId",
+                  "carModelId",
+                  "mileage"
+                ]
+              },
+              "example": {
+                "carBrandId": 1,
+                "carModelId": 1,
+                "mileage": 122
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Car successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 94,
+                    "carBrandId": 1,
+                    "carModelId": 1,
+                    "initialMileage": 122,
+                    "updatedMileageAt": "2021-05-17T15:26:36.000Z",
+                    "mileage": 122,
+                    "brand": "Audi",
+                    "model": "TT",
+                    "logo": "audi.png"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Gets current user car by id",
+        "operationId": "getCarById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric car id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 94,
+                    "carBrandId": 1,
+                    "carModelId": 1,
+                    "initialMileage": 11,
+                    "updatedMileageAt": "2021-05-17T15:26:36.000Z",
+                    "mileage": 111,
+                    "brand": "Audi",
+                    "model": "TT",
+                    "logo": "audi.png"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Edits existing car",
+        "operationId": "putCar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric car id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "carBrandId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "carModelId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "mileage": {
+                    "$ref": "#/components/schemas/Mileage"
+                  }
+                }
+              },
+              "example": {
+                "carBrandId": 1,
+                "carModelId": 1,
+                "mileage": 168223
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Car successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Car"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 94,
+                    "carBrandId": 1,
+                    "carModelId": 1,
+                    "initialMileage": 122,
+                    "updatedMileageAt": "2021-05-17T15:26:36.000Z",
+                    "mileage": 168223,
+                    "brand": "Audi",
+                    "model": "TT",
+                    "logo": "audi.png"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cars"
+        ],
+        "summary": "Deletes existing car",
+        "operationId": "deleteCar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric car id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "carId": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "carId": 94
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/expenses": {
+      "get": {
+        "tags": [
+          "Expenses"
+        ],
+        "summary": "Gets all expenses",
+        "operationId": "getExpenses",
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "query",
+            "description": "Numeric car id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Expense"
+                      }
+                    },
+                    "currentPage": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "totalItems": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "id": 54,
+                      "carId": 94,
+                      "reportedAt": "2021-05-17",
+                      "mileage": 111,
+                      "liters": 11,
+                      "totalCost": 11
+                    },
+                    {
+                      "id": 55,
+                      "carId": 94,
+                      "reportedAt": "2021-06-17",
+                      "mileage": 222,
+                      "liters": 11,
+                      "totalCost": 11
+                    }
+                  ],
+                  "currentPage": 1,
+                  "totalItems": 2
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Expenses"
+        ],
+        "summary": "Creates an expense",
+        "operationId": "postExpense",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "carId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "reportedAt": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "mileage": {
+                    "$ref": "#/components/schemas/Mileage"
+                  },
+                  "liters": {
+                    "$ref": "#/components/schemas/Liters"
+                  },
+                  "totalCost": {
+                    "$ref": "#/components/schemas/TotalCost"
+                  },
+                  "forceMileage": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                },
+                "required": [
+                  "carId",
+                  "reportedAt",
+                  "mileage",
+                  "liters",
+                  "totalCost",
+                  "forceMileage"
+                ]
+              },
+              "example": {
+                "carId": 1,
+                "reportedAt": "2021-05-17",
+                "mileage": 111,
+                "liters": 11,
+                "totalCost": 11,
+                "forceMileage": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Expense successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 54,
+                    "carId": 94,
+                    "reportedAt": "2021-05-17",
+                    "mileage": 111,
+                    "liters": 11,
+                    "totalCost": 11
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/expenses/{id}": {
+      "get": {
+        "tags": [
+          "Expenses"
+        ],
+        "summary": "Gets an expense by id",
+        "operationId": "getExpenseById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric expense id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 54,
+                    "carId": 94,
+                    "reportedAt": "2021-05-17",
+                    "mileage": 111,
+                    "liters": 11,
+                    "totalCost": 11
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Expenses"
+        ],
+        "summary": "Edits an expense",
+        "operationId": "putExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric expense id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "carId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "reportedAt": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "mileage": {
+                    "$ref": "#/components/schemas/Mileage"
+                  },
+                  "liters": {
+                    "$ref": "#/components/schemas/Liters"
+                  },
+                  "totalCost": {
+                    "$ref": "#/components/schemas/TotalCost"
+                  },
+                  "forceMileage": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              },
+              "example": {
+                "carId": 1,
+                "reportedAt": "2021-05-17",
+                "mileage": 111,
+                "liters": 11,
+                "totalCost": 11,
+                "forceMileage": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Expense successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 54,
+                    "carId": 94,
+                    "reportedAt": "2021-05-17",
+                    "mileage": 111,
+                    "liters": 11,
+                    "totalCost": 11
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Expenses"
+        ],
+        "summary": "Removes an expense",
+        "operationId": "deleteExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Numeric expense id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expense successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "expenseId": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "expenseId": 54
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/instructions": {
+      "get": {
+        "tags": [
+          "Instructions"
+        ],
+        "summary": "Gets all instructions",
+        "operationId": "getInstructions",
+        "parameters": [
+          {
+            "name": "carBrandId",
+            "in": "query",
+            "description": "Numeric car brand id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "carModelId",
+            "in": "query",
+            "description": "Numeric car model id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Instruction"
+                      }
+                    },
+                    "currentPage": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "totalItems": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": [
+                    {
+                      "id": 1,
+                      "filename": "instruction_1.pdf",
+                      "description": "How to change: Fiat 500 312 engine oil and filter – replacement guide",
+                      "carBrandId": 1,
+                      "carModelId": 1
+                    },
+                    {
+                      "id": 2,
+                      "filename": "instruction_2.pdf",
+                      "description": "How to replace the rear hub bearing on PEUGEOT 206 CC (2D)",
+                      "carBrandId": 1,
+                      "carModelId": 1
+                    },
+                    {
+                      "id": 3,
+                      "filename": "instruction_3.pdf",
+                      "description": "How to replace boot lid gas struts on Mercedes W245",
+                      "carBrandId": 1,
+                      "carModelId": 1
+                    }
+                  ],
+                  "currentPage": 1,
+                  "totalItems": 3
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    },
+    "/instructions/{id}": {
+      "get": {
+        "tags": [
+          "Instructions"
+        ],
+        "summary": "Gets an instruction by id",
+        "operationId": "getInstructionById",
+        "responses": {
+          "200": {
+            "description": "Successfully received the data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "$ref": "#/components/schemas/ResponseStatus",
+                      "default": "ok"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Instruction"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok",
+                  "data": {
+                    "id": 1,
+                    "filename": "instruction_1.pdf",
+                    "description": "How to change: Fiat 500 312 engine oil and filter – replacement guide",
+                    "carBrandId": 1,
+                    "carModelId": 1
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401NotAuthenticated"
+          },
+          "404": {
+            "$ref": "#/components/responses/404NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResponseStatus": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "error"
+        ]
+      },
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ResponseStatus",
+            "default": "error"
+          },
+          "message": {
+            "type": "string",
+            "default": "Bad request"
+          }
+        }
+      },
+      "NotAuthenticatedError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ResponseStatus",
+            "default": "error"
+          },
+          "message": {
+            "type": "string",
+            "default": "Not authenticated"
+          }
+        }
+      },
+      "NotFoundError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ResponseStatus",
+            "default": "error"
+          },
+          "message": {
+            "type": "string",
+            "default": "Not authenticated"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "admin",
+              "superadmin"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "userId": {
+            "type": "integer",
+            "minimum": 1,
+            "$ref": "#/components/schemas/User"
+          },
+          "photoFilename": {
+            "type": "string",
+            "default": "default-user.png"
+          },
+          "name": {
+            "type": "string",
+            "default": "User"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "country": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserSettings": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "userId": {
+            "type": "integer",
+            "minimum": 1,
+            "$ref": "#/components/schemas/User"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "eur",
+              "gbp",
+              "usd",
+              "uah",
+              "pln"
+            ],
+            "default": "usd"
+          },
+          "distanceUnits": {
+            "type": "string",
+            "enum": [
+              "km",
+              "ml"
+            ],
+            "default": "km"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DistanceUnits": {
+        "type": "string",
+        "enum": [
+          "km",
+          "ml"
+        ],
+        "default": "km"
+      },
+      "Currency": {
+        "type": "string",
+        "enum": [
+          "eur",
+          "gbp",
+          "usd",
+          "uah",
+          "pln"
+        ],
+        "default": "usd"
+      },
+      "Brand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "logoFilename": {
+            "type": "string"
+          }
+        }
+      },
+      "Model": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "carBrandId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "Mileage": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 999999
+      },
+      "Car": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "carBrandId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "carModelId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "initialMileage": {
+            "type": "integer"
+          },
+          "updatedMileageAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "mileage": {
+            "$ref": "#/components/schemas/Mileage"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          }
+        }
+      },
+      "Liters": {
+        "type": "number",
+        "format": "float",
+        "minimum": 0.01,
+        "maximum": 9999
+      },
+      "TotalCost": {
+        "type": "number",
+        "format": "float",
+        "minimum": 0.01,
+        "maximum": 1000000
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "carId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reportedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "mileage": {
+            "$ref": "#/components/schemas/Mileage"
+          },
+          "liters": {
+            "$ref": "#/components/schemas/Liters"
+          },
+          "totalCost": {
+            "$ref": "#/components/schemas/TotalCost"
+          }
+        }
+      },
+      "Instruction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "filename": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "carBrandId": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "carModelId": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "responses": {
+      "400BadRequest": {
+        "description": "Bad request error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BadRequestError"
+            },
+            "example": {
+              "status": "error",
+              "message": "Bad request"
+            }
+          }
+        }
+      },
+      "401NotAuthenticated": {
+        "description": "User is not logged in",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NotAuthenticatedError"
+            }
+          }
+        }
+      },
+      "404NotFound": {
+        "description": "Route or entity not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/NotFoundError"
+            },
+            "example": {
+              "status": "error",
+              "message": "Not found"
+            }
+          }
+        }
+      }
+    }
+  }
+}
