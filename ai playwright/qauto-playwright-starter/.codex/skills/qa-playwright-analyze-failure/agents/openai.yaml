@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA: Аналіз падіння"
+  short_description: "Діагностує Playwright failure за evidence."
+  default_prompt: "Проаналізуй падіння Playwright-тесту за source, report, trace та oracle."
