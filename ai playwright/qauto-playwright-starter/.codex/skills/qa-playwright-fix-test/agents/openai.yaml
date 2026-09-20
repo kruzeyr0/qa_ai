@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA: Виправити тест"
+  short_description: "Пропонує мінімальну evidence-based правку."
+  default_prompt: "Запропонуй мінімальну правку Playwright-тесту лише після evidence-based diagnosis."

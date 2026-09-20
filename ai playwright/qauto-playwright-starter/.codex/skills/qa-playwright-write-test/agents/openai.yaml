@@ -1,0 +1,4 @@
+interface:
+  display_name: "QA: Написати тест"
+  short_description: "Створює один Playwright-тест за погодженим spec."
+  default_prompt: "Створи один Playwright-тест лише за погодженим spec і перевіреними локаторами."
